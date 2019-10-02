@@ -1,0 +1,18 @@
+#!/bin/bash
+
+for f in $(ls -1 /home/groups/SMMARTData/ForBackup/KDL/*/RNA_Exome_Fusions_Variants/*_L001_R2_001.fastq.gz)
+    do
+        nm=`basename ${f%_L00[1-4]_*}`;
+        echo $nm
+        btch_pre=${f#/home/groups/SMMARTData/ForBackup/KDL/}; #Remove prefix
+        btch=${btch_pre%/RNA*}
+        echo $btch
+        pref_fastqs=${f%_L001_R2_001.fastq.gz}
+        ls ${pref_fastqs}*R2*.gz
+newname=/home/exacloud/lustre1/HeiserLab/patterja/tatlow_SMMART/raw/"$btch"_"$nm"
+        if [ ! -e "$newname"__R1.fastq.gz ]; then
+            echo $nm "doesnot exist"
+        else
+            echo $nm "exists"
+        fi
+done
